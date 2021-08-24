@@ -8,12 +8,14 @@ public class InkyScriot : MonoBehaviour {
 
     public TextAsset inkJson;
     public Text textPrefab;
-    public Button buttonPrefab; 
+    public Button buttonPrefab;
+    public new Camera camera;
+    public GameObject playerOne;
+    public GameObject playerTwo;
 
     private Story story;
     void Start() {
         story = new Story(inkJson.text);
-
         refreshUI();
     }
 
@@ -25,7 +27,22 @@ public class InkyScriot : MonoBehaviour {
         string text = loadStoryChunk();
 
         List<string> tags = story.currentTags;
-        if (tags.Count > 0) text = "<b>" + tags[0] + "</b>" + " - " + text;
+        if (tags.Count > 0) {
+            if (tags[0] == "Game")
+            {
+                camera.transform.LookAt(playerOne.transform);
+                playerOne.name = "Focus";
+                playerTwo.name = "Player 2";
+                camera.GetComponent<CameraController>().lookAtPlayer(playerOne.transform);
+            }
+            else { 
+                camera.transform.LookAt(playerTwo.transform);
+                playerTwo.name = "Focus";
+                playerOne.name = "Player 1";
+                camera.GetComponent<CameraController>().lookAtPlayer(playerTwo.transform);
+            }
+            text = "<b>" + tags[0] + "</b>" + " - " + text;
+        }
 
         storyText.text = text;
         storyText.transform.SetParent(this.transform, false);
