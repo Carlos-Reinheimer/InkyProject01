@@ -30,16 +30,12 @@ public class InkyScriot : MonoBehaviour {
         if (tags.Count > 0) {
             if (tags[0] == "Game")
             {
-                camera.transform.LookAt(playerOne.transform);
                 playerOne.name = "Focus";
                 playerTwo.name = "Player 2";
-                camera.GetComponent<CameraController>().lookAtPlayer(playerOne.transform);
             }
-            else { 
-                camera.transform.LookAt(playerTwo.transform);
+            else {
                 playerTwo.name = "Focus";
                 playerOne.name = "Player 1";
-                camera.GetComponent<CameraController>().lookAtPlayer(playerTwo.transform);
             }
             text = "<b>" + tags[0] + "</b>" + " - " + text;
         }

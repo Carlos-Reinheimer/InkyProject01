@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public Transform target;
     public float smoothSpeed = 0.01f;
-    public Vector3 offset;
+    public Transform defaultTarget;
 
-    public void lookAtPlayer(Transform lookTransform) {
-        if (lookTransform) {
-            Vector3 desiredPosition = lookTransform.position + offset;
-            Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-            transform.position = smoothedPosition;
-        }
+    private GameObject target;
+    private Quaternion goal;
+    private Vector3 direction;
+    private Transform lookTarget;
+
+    private void FixedUpdate() {
+        target = GameObject.Find("Focus");
+
+        lookTarget = target ? target.transform : defaultTarget;
+        direction = (lookTarget.transform.position - transform.position).normalized; // direction
+        goal = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, goal, smoothSpeed);
     }
-
 }

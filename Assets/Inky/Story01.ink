@@ -14,7 +14,7 @@ How are you doing fellow player? #Game
 -> END
 
 == Bad ==
-<color=red>Not so good, what about ya? </color> #You
+<color=red>Not so good, what about ya? </color> #Game
 -> My_Choises
 
 == Other ==
